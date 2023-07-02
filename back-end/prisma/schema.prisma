@@ -1,0 +1,75 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Company {
+  id String @id @default(uuid())
+  company_name String
+  company_email String @unique
+  company_cnpj String
+  password String
+  salt String @unique
+  offers Offers[]
+
+  @@map("companies")
+}
+
+model User{
+  id String @id @default(uuid())
+  githubId Int @unique
+  name String
+  login String
+  avatarUrl String
+
+  curriculum Presetention?
+  offersId UserOnOffers[]
+
+  @@map("users")
+}
+
+model Presetention{
+  id String @id @default(uuid())
+  curriculumUrl String
+  createAt DateTime @default(now())
+
+  ownerCurriculum User? @relation(fields: [curriculumUrlId], references: [id])
+  curriculumUrlId String? @unique
+
+  @@map("presetention")
+}
+
+model Offers {
+  id String @id @default(uuid())
+  tittle String
+  description String
+  imageUrl String?
+  latitude String
+  longitude String
+  contact String?
+  createAt DateTime @default(now())
+
+  
+  offers Company @relation(fields: [companyId], references: [id])
+  companyId String
+  
+  userId UserOnOffers[]
+  @@map("company_offers")
+}
+
+model UserOnOffers {
+  user User @relation(fields: [userId], references: [id])
+  userId String
+  offer Offers @relation(fields: [offersId], references: [id])
+  offersId String
+
+  @@id([userId, offersId])
+  @@map("useronoffers")
+}
