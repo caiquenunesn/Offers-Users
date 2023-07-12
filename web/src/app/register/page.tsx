@@ -11,21 +11,17 @@ export default function Register(){
         email: '',
         cnpj: '',
         password: '',
-        latitude: '',
-        longitude: '',
       })
 
       function handleRegister(e: ChangeEvent<HTMLInputElement>){
         const {name, value} = e.target
         setRegister({...register, [name]: value})
-
-        console.log(register)
       }
 
       async function SubRegister(e: FormEvent){
         e.preventDefault()
         try{
-          await baseUrl.post('/register_company', register)
+          await baseUrl.post('/cregister', register)
           router.push('/login')
         }catch(e){
           return console.log(e)
@@ -47,10 +43,6 @@ export default function Register(){
                 <input name='cnpj' onChange={handleRegister}/>
                 <label>senha</label>
                 <input name='password' onChange={handleRegister} />
-                <label>latitude</label>
-                <input name='latitude' onChange={handleRegister} />
-                <label>longitude</label>
-                <input name='longitude' onChange={handleRegister} />
                 <button className='px-5' type="submit">Register</button>
 
             </div>

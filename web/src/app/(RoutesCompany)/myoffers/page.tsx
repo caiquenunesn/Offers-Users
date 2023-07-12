@@ -18,11 +18,11 @@ interface Offer {
 export default function Dashboard(){
     const offers = async () => {
         const headers = { 'Authorization': `Bearer ${getCookie('token')}` }
-        const res = await baseUrl.get<Offer[]>('/myoffers',{headers}).then(res => res.data)
+        const res = await baseUrl.get<Offer[]>('/cmyoffers',{headers}).then(res => res.data)
         return res
     }
     const { data, isLoading } = useQuery({
-        queryKey: ['/myoffers'],
+        queryKey: ['/cmyoffers'],
         queryFn: offers
     })
     return(

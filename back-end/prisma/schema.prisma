@@ -14,7 +14,7 @@ model Company {
   id String @id @default(uuid())
   company_name String
   company_email String @unique
-  company_cnpj String
+  company_cnpj String //@unique
   password String
   salt String @unique
   offers Offers[]

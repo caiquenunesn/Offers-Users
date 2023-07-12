@@ -22,7 +22,7 @@ export default function Login(){
     async function submit(e: FormEvent){
         e.preventDefault();
         try{
-            const res = await baseUrl.post('/login', formData
+            const res = await baseUrl.post('/clogin', formData
             )
             setCookies('token', res.data.token, {  maxAge: 60 * 6 * 24 });
             nextPage.push('/myoffers')
